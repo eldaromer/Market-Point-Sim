@@ -41,15 +41,27 @@ public class Main {
         //Creates teams
         seeders = teamGenerator(11);
         //Creates random team values
-        seeders = seedRound(seeders);
+        seeders = seedRound(seeders, 6);
         //Check if we won
-        boolean win = winCheck(Best, seeders);
+        boolean win = winCheck(Best, seeders, 7);
+        //Declares variable to determine if we won the WildCard Round
+        boolean wildWin;
         //Sends us to wildcard if we lost
+
         if (win){
             System.out.println("HELL YEAH!! WE MADE IT TO THE SEMIS");
         } else {
             System.out.println("Dang. Let's hope you get wildcard.");
-            wildCard();
+            //Defines new teams
+            Team [] wild;
+            System.out.println("Enter new values for our team");
+            //Defines new team for us
+            Team wildBest = BEST();
+            //Defines the space of the wild array
+            wild = teamGenerator(3);
+            wild = seedRound(wild, 1);
+            //Assigns the boolean wildWin to the result of the wildCard method
+            wildWin = winCheck(wildBest, wild, 1);
         }
 
     }
@@ -122,30 +134,29 @@ public class Main {
     }
 
     //Checks if we won the seeding round
-    public static boolean winCheck(Team us, Team [] scrubs) {
+    public static boolean winCheck(Team us, Team [] scrubs, int winningFactor) {
         int worseThan = 0;
-        for (int i = 0; i < scrubs.length; i++){
-            if (scrubs[i].score > us.score){
+
+        for (int i = 0; i < scrubs.length; i++) {
+            if (scrubs[i].score > us.score) {
                 worseThan++;
             }
         }
-        if (worseThan >= 7){
+        if (worseThan >= winningFactor) {
             return false;
         } else {
             return true;
         }
     }
 
-    //To do
-    public static boolean wildCard(){
 
-    }
+
 
 
     //Randomizes 6 seeding rounds for each team
-    public static Team [] seedRound(Team [] teams) {
-        for (int teamNum = 0; teamNum < 11; teamNum++) {
-            for (int round = 0; round < 6; round++) {
+    public static Team [] seedRound(Team [] teams, int roundLength) {
+        for (int teamNum = 0; teamNum < teams.length; teamNum++) {
+            for (int round = 0; round < roundLength; round++) {
                 int limestone = rand.nextInt(6);
                 int coal = rand.nextInt(25);
                 coalCollected += coal;
