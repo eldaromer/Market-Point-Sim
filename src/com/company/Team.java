@@ -6,7 +6,6 @@ package com.company;
 public class Team {
 
     float score = 0;
-    float notebookScore;
     public Team () {
 
     }
