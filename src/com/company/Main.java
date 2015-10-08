@@ -1,5 +1,7 @@
 package com.company;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -14,7 +16,7 @@ import java.util.Random;
 public class Main {
 
     //Specify amount of rounds
-    static int rounds = 100;
+    static int rounds = 10000;
 
     //Start win and loss counters at 0
     static int won = 0;
@@ -23,7 +25,7 @@ public class Main {
     //Mode for input
     //test puts highest values
     //all makes you
-    static String mode = "test";
+    static String mode = "all";
 
     //Initializes a random
     static Random rand = new Random();
@@ -43,26 +45,22 @@ public class Main {
     static int chalcopyriteCollected = 0;
     static int spodumeneCollected = 0;
 
-    //Make our teams
-    static Team Best = BEST(6, "Seeding");
-    static Team wildBest = BEST(1, "Wildcard");
-    static Team BestSemi = BEST(3, "Semifinal");
-    static Team BestFinal = BEST(3, "Final");
-
     //Main Method
     public static void main(String[] args) {
 
-        for (int i = 0; i < rounds; i++) {
+        CoolestGUI game = new CoolestGUI();
+
+        /*for (int i = 0; i < rounds; i++) {
             gameDay();
         }
 
-        System.out.println("We won: " + won);
-        System.out.println("We lost: " + lost);
+        System.out.println("We won: " + won/rounds*100 + "%");
+        System.out.println("We lost: " + lost/rounds*100 + "%");*/
 
     }
 
 
-    public static void gameDay() {
+    public static void gameDay(Team Best, Team wildBest, Team BestSemi, Team BestFinal) {
         coalValue = 5;
         magnetiteValue = 7;
         bauxiteValue = 10;
@@ -151,78 +149,37 @@ public class Main {
     }
 
     //Function that gets user input and returns a team with those values
-    public static Team BEST(int rounds, String round){
-        Scanner oreInput = new Scanner(System.in);
+    public static Team BEST(int rounds, int lime, int coa, int mag, int bau, int cha, int spo, int csv, boolean air, boolean pip){
         Team best = new Team();
-        if (mode == "all") {
-
-            System.out.println(round + " round: ");
-
-            System.out.println("Limestone collected: ");
-            int limestone = oreInput.nextInt();
-
-            System.out.println("Coal collected: ");
-            int coal = oreInput.nextInt();
-
-            System.out.println("Magnetite collected: ");
-            int magnetite = oreInput.nextInt();
-
-            System.out.println("Bauxite collected: ");
-            int bauxite = oreInput.nextInt();
-
-            System.out.println("Chalcopyrite collected: ");
-            int chalcopyrite = oreInput.nextInt();
-
-            System.out.println("Spodumene collected: ");
-            int spodumene = oreInput.nextInt();
-
-            System.out.println("Core sample value (0 for none, 3 for largest): ");
-            int coreSampleValue = oreInput.nextInt()*50;
-
-            System.out .println("Did you get the air filter?");
-            int airFilter = 0;
-            if (oreInput.nextBoolean()) {
-                airFilter = 100;
-            }
-            System.out .println("Did you get the pipe?");
-            int pipe = 0;
-            if (oreInput.nextBoolean()) {
-                pipe = 100;
-            }
-            coalCollected += coal * rounds;
-            magnetiteCollected += magnetite * rounds;
-            bauxiteCollected += bauxite * rounds;
-            chalcopyriteCollected += chalcopyrite * rounds;
-            spodumeneCollected += spodumene * rounds;
-
-            best.score += limestone * rounds * 2;
-            best.score += coal * rounds * coalValue;
-            best.score += magnetite * rounds * magnetiteValue;
-            best.score += bauxite * rounds * bauxiteValue;
-            best.score += chalcopyrite * rounds * chalcopyriteValue;
-            best.score += spodumene * rounds * spodumeneValue;
-            best.score += airFilter * rounds;
-            best.score += pipe * rounds;
-            best.score += coreSampleValue * rounds;
-        } else if (mode == "test") {
-            for (int i = 0; i < rounds; i++) {
-                coalCollected += 24;
-                magnetiteCollected += 20;
-                bauxiteCollected += 16;
-                chalcopyriteCollected += 12;
-                spodumeneCollected += 8;
-
-                best.score += 5 *  2;
-                best.score += 24 *  coalValue;
-                best.score += 20 *  magnetiteValue;
-                best.score += 16 *  bauxiteValue;
-                best.score += 12 *  chalcopyriteValue;
-                best.score += 8 *  spodumeneValue;
-                best.score += 100;
-                best.score += 100;
-                best.score += 150;
-            }
+        int limestone = lime;
+        int coal = coa;
+        int magnetite = mag;
+        int bauxite = bau;
+        int chalcopyrite = cha;
+        int spodumene = spo;
+        int coreSampleValue = csv*50;
+        int airFilter = 0;
+        if (air) {
+            airFilter = 100;
         }
+        int pipe = 0;
+        if (pip) {
+            pipe = 100;
+        }
+        coalCollected += coal * rounds;
+        magnetiteCollected += magnetite * rounds;
+        bauxiteCollected += bauxite * rounds;
+        chalcopyriteCollected += chalcopyrite * rounds;
+        spodumeneCollected += spodumene * rounds;
+        best.score += limestone * rounds * 2;
+        best.score += coal * rounds * coalValue;
+        best.score += magnetite * rounds * magnetiteValue;
+        best.score += bauxite * rounds * bauxiteValue;
+        best.score += chalcopyrite * rounds * chalcopyriteValue;
+        best.score += spodumene * rounds * spodumeneValue;
+        best.score += airFilter * rounds;
+        best.score += pipe * rounds;
+        best.score += coreSampleValue * rounds;
         return best;
     }
 
