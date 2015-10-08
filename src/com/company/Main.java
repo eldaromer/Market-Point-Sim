@@ -50,13 +50,6 @@ public class Main {
 
         CoolestGUI game = new CoolestGUI();
 
-        /*for (int i = 0; i < rounds; i++) {
-            gameDay();
-        }
-
-        System.out.println("We won: " + won/rounds*100 + "%");
-        System.out.println("We lost: " + lost/rounds*100 + "%");*/
-
     }
 
 

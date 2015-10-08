@@ -55,6 +55,8 @@ public class CoolestGUI extends JFrame {
     private JButton calculateButton;
     private JLabel winLabel;
     private JLabel loseLabel;
+    private JButton importStrategyButton;
+    private JButton exportStrategyButton;
 
     public CoolestGUI () {
         super("Game Day!");
