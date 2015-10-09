@@ -4,7 +4,9 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -90,6 +92,7 @@ public class CoolestGUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser choose = new JFileChooser();
+                choose.setDialogTitle("Choose Your Strategy");
                 FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
                 choose.setFileFilter(filter);
                 int returnValue = choose.showOpenDialog(null);
@@ -99,8 +102,43 @@ public class CoolestGUI extends JFrame{
 
                     try {
                         ReadFile importStrategy = new ReadFile(selectedFile);
-                        String [] impStrat = importStrategy.OpenFile();
-                        handleImport(impStrat);
+                        String [] input = importStrategy.OpenFile();
+                        coalFieldS.setText(input[0]);
+                        magnetiteFieldS.setText(input[1]);
+                        bauxiteFieldS.setText(input[2]);
+                        chalcopyriteFieldS.setText(input[3]);
+                        spodumeneFieldS.setText(input[4]);
+                        aggragateFieldS.setText(input[5]);
+                        csvFieldS.setText(input[6]);
+                        pipeCheckS.setSelected(Boolean.parseBoolean(input[7]));
+                        filterCheckS.setSelected(Boolean.parseBoolean(input[8]));
+                        coalFieldW.setText(input[9]);
+                        magnetiteFieldW.setText(input[10]);
+                        bauxiteFieldW.setText(input[11]);
+                        chalcopyriteFieldW.setText(input[12]);
+                        spodumeneFieldW.setText(input[13]);
+                        aggragateFieldW.setText(input[14]);
+                        csvFieldW.setText(input[15]);
+                        pipeCheckW.setSelected(Boolean.parseBoolean(input[16]));
+                        filterCheckW.setSelected(Boolean.parseBoolean(input[17]));
+                        coalFieldSF.setText(input[18]);
+                        magnetiteFieldSF.setText(input[19]);
+                        bauxiteFieldSF.setText(input[20]);
+                        chalcopyriteFieldSF.setText(input[21]);
+                        spodumeneFieldSF.setText(input[22]);
+                        aggragateFieldSF.setText(input[23]);
+                        csvFieldSF.setText(input[24]);
+                        pipeCheckSF.setSelected(Boolean.parseBoolean(input[25]));
+                        filterCheckSF.setSelected(Boolean.parseBoolean(input[26]));
+                        coalFieldF.setText(input[27]);
+                        magnetiteFieldF.setText(input[28]);
+                        bauxiteFieldF.setText(input[29]);
+                        chalcopyriteFieldF.setText(input[30]);
+                        spodumeneFieldF.setText(input[31]);
+                        aggragateFieldF.setText(input[32]);
+                        csvFieldF.setText(input[33]);
+                        pipeCheckF.setSelected(Boolean.parseBoolean(input[34]));
+                        filterCheckF.setSelected(Boolean.parseBoolean(input[35]));
                     } catch (IOException d) {
                         System.out.println(d.getMessage());
                     }
@@ -109,12 +147,98 @@ public class CoolestGUI extends JFrame{
             }
         });
 
-        setVisible(true);
-    }
+        exportStrategyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser save = new JFileChooser(new File("C:\\"));
+                save.setDialogTitle("Save Your Strategy");
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+                save.setFileFilter(filter);
+                int returnValue = save.showSaveDialog(getParent());
 
-    public static void handleImport(String [] input) {
-        for (int i = 0; i < input.length; i++) {
-            System.out.println(input[i]);
-        }
+                try {
+                    if (returnValue == JFileChooser.APPROVE_OPTION) {
+                        File file = save.getSelectedFile();
+                        BufferedWriter o = new BufferedWriter(new FileWriter(file.getAbsolutePath() + ".txt"));
+                        o.write(coalFieldS.getText());
+                        o.newLine();
+                        o.write(magnetiteFieldS.getText());
+                        o.newLine();
+                        o.write(bauxiteFieldS.getText());
+                        o.newLine();
+                        o.write(chalcopyriteFieldS.getText());
+                        o.newLine();
+                        o.write(spodumeneFieldS.getText());
+                        o.newLine();
+                        o.write(aggragateFieldS.getText());
+                        o.newLine();
+                        o.write(csvFieldS.getText());
+                        o.newLine();
+                        o.write(Boolean.toString(pipeCheckS.isSelected()));
+                        o.newLine();
+                        o.write(Boolean.toString(filterCheckS.isSelected()));
+                        o.newLine();
+                        o.write(coalFieldW.getText());
+                        o.newLine();
+                        o.write(magnetiteFieldW.getText());
+                        o.newLine();
+                        o.write(bauxiteFieldW.getText());
+                        o.newLine();
+                        o.write(chalcopyriteFieldW.getText());
+                        o.newLine();
+                        o.write(spodumeneFieldW.getText());
+                        o.newLine();
+                        o.write(aggragateFieldW.getText());
+                        o.newLine();
+                        o.write(csvFieldW.getText());
+                        o.newLine();
+                        o.write(Boolean.toString(pipeCheckW.isSelected()));
+                        o.newLine();
+                        o.write(Boolean.toString(filterCheckW.isSelected()));
+                        o.newLine();
+                        o.write(coalFieldSF.getText());
+                        o.newLine();
+                        o.write(magnetiteFieldSF.getText());
+                        o.newLine();
+                        o.write(bauxiteFieldSF.getText());
+                        o.newLine();
+                        o.write(chalcopyriteFieldSF.getText());
+                        o.newLine();
+                        o.write(spodumeneFieldSF.getText());
+                        o.newLine();
+                        o.write(aggragateFieldSF.getText());
+                        o.newLine();
+                        o.write(csvFieldSF.getText());
+                        o.newLine();
+                        o.write(Boolean.toString(pipeCheckSF.isSelected()));
+                        o.newLine();
+                        o.write(Boolean.toString(filterCheckSF.isSelected()));
+                        o.newLine();
+                        o.write(coalFieldF.getText());
+                        o.newLine();
+                        o.write(magnetiteFieldF.getText());
+                        o.newLine();
+                        o.write(bauxiteFieldF.getText());
+                        o.newLine();
+                        o.write(chalcopyriteFieldF.getText());
+                        o.newLine();
+                        o.write(spodumeneFieldF.getText());
+                        o.newLine();
+                        o.write(aggragateFieldF.getText());
+                        o.newLine();
+                        o.write(csvFieldF.getText());
+                        o.newLine();
+                        o.write(Boolean.toString(pipeCheckF.isSelected()));
+                        o.newLine();
+                        o.write(Boolean.toString(filterCheckF.isSelected()));
+                        o.close();
+                    }
+                } catch (IOException d) {
+                    System.out.println(d.getMessage());
+                }
+            }
+        });
+
+        setVisible(true);
     }
 }

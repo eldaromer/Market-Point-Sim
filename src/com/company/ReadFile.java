@@ -19,7 +19,8 @@ public class ReadFile {
         FileReader fr = new FileReader(toRead);
         BufferedReader textReader = new BufferedReader(fr);
 
-        int numberOfLines = readLines();
+        int numberOfLines = readLines()
+                ;
         String [] textData = new String[numberOfLines];
 
         for (int i = 0; i < numberOfLines; i++) {
