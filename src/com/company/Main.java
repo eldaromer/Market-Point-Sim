@@ -2,6 +2,7 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -46,7 +47,7 @@ public class Main {
     static int spodumeneCollected = 0;
 
     //Main Method
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
 
         CoolestGUI game = new CoolestGUI();
 

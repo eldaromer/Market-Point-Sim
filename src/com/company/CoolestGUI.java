@@ -1,13 +1,16 @@
 package com.company;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by Omer on 10/7/2015.
  */
-public class CoolestGUI extends JFrame {
+public class CoolestGUI extends JFrame{
 
     static Team Best;
     static Team wildBest;
@@ -58,7 +61,7 @@ public class CoolestGUI extends JFrame {
     private JButton importStrategyButton;
     private JButton exportStrategyButton;
 
-    public CoolestGUI () {
+    public CoolestGUI () throws IOException{
         super("Game Day!");
 
         setContentPane(rootPanel);
@@ -83,6 +86,35 @@ public class CoolestGUI extends JFrame {
             }
         });
 
+        importStrategyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser choose = new JFileChooser();
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+                choose.setFileFilter(filter);
+                int returnValue = choose.showOpenDialog(null);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = choose.getSelectedFile();
+                    System.out.println(selectedFile.getName());
+
+                    try {
+                        ReadFile importStrategy = new ReadFile(selectedFile);
+                        String [] impStrat = importStrategy.OpenFile();
+                        handleImport(impStrat);
+                    } catch (IOException d) {
+                        System.out.println(d.getMessage());
+                    }
+
+                }
+            }
+        });
+
         setVisible(true);
+    }
+
+    public static void handleImport(String [] input) {
+        for (int i = 0; i < input.length; i++) {
+            System.out.println(input[i]);
+        }
     }
 }
