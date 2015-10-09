@@ -1,24 +1,23 @@
 package com.company;
 
+//Loads necessary packages
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.awt.event.*;
+import java.io.*;
 
 /**
  * Created by Omer on 10/7/2015.
  */
 public class CoolestGUI extends JFrame{
 
+    //Initialized editable teams
     static Team Best;
     static Team wildBest;
     static Team BestSemi;
     static Team BestFinal;
 
+    //Creates all gui components
     private JTabbedPane awesomePane;
     private JTextField coalFieldS;
     private JTextField magnetiteFieldS;
@@ -62,15 +61,21 @@ public class CoolestGUI extends JFrame{
     private JLabel loseLabel;
     private JButton importStrategyButton;
     private JButton exportStrategyButton;
+    private JTextField rounds;
 
+    //Runs on creation of CoolestGUI
     public CoolestGUI () throws IOException{
+        //Titles the GUI
         super("Game Day!");
 
+        //Puts content pane as the root tabbed pane
         setContentPane(rootPanel);
 
+        //Packs and sets close operation
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        //Calculates win and loss percentages based on inputted strategy
         calculateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -79,15 +84,16 @@ public class CoolestGUI extends JFrame{
                 BestSemi = Main.BEST(3, Integer.parseInt(aggragateFieldSF.getText()), Integer.parseInt(coalFieldSF.getText()), Integer.parseInt(magnetiteFieldSF.getText()), Integer.parseInt(bauxiteFieldSF.getText()), Integer.parseInt(chalcopyriteFieldSF.getText()), Integer.parseInt(spodumeneFieldSF.getText()), Integer.parseInt(csvFieldSF.getText()), filterCheckSF.isSelected(), pipeCheckSF.isSelected());
                 BestFinal = Main.BEST(3, Integer.parseInt(aggragateFieldF.getText()), Integer.parseInt(coalFieldF.getText()), Integer.parseInt(magnetiteFieldF.getText()), Integer.parseInt(bauxiteFieldF.getText()), Integer.parseInt(chalcopyriteFieldF.getText()), Integer.parseInt(spodumeneFieldF.getText()), Integer.parseInt(csvFieldF.getText()), filterCheckF.isSelected(), pipeCheckF.isSelected());
 
-                for (int i = 0; i < Main.rounds; i++) {
+                for (int i = 0; i < Integer.parseInt(rounds.getText()); i++) {
                     Main.gameDay(Best, wildBest, BestSemi, BestFinal);
                 }
 
-                winLabel.setText("We won: " + Main.won/Main.rounds*100 + "%");
-                loseLabel.setText("We lost: " + Main.lost/Main.rounds*100 + "%");
+                winLabel.setText("We won: " + Main.won/Integer.parseInt(rounds.getText())*100 + "%");
+                loseLabel.setText("We lost: " + Main.lost/Integer.parseInt(rounds.getText())*100 + "%");
             }
         });
 
+        //Opens a file chooser and allows the user to select a strategy file
         importStrategyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -147,6 +153,7 @@ public class CoolestGUI extends JFrame{
             }
         });
 
+        //Opens a file chooser and allows the user to save the file in a specific location with a chosen name
         exportStrategyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

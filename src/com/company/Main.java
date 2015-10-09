@@ -16,17 +16,9 @@ import java.util.Random;
 //Libraries Imported
 public class Main {
 
-    //Specify amount of rounds
-    static int rounds = 10000;
-
     //Start win and loss counters at 0
     static int won = 0;
     static int lost = 0;
-
-    //Mode for input
-    //test puts highest values
-    //all makes you
-    static String mode = "all";
 
     //Initializes a random
     static Random rand = new Random();
@@ -109,6 +101,7 @@ public class Main {
         }
     }
 
+    //Resets collected values after market shift
     public static void reset() {
         coalCollected = 0;
         magnetiteCollected = 0;
@@ -142,7 +135,7 @@ public class Main {
         }
     }
 
-    //Function that gets user input and returns a team with those values
+    //Function that returns a team given inputs
     public static Team BEST(int rounds, int lime, int coa, int mag, int bau, int cha, int spo, int csv, boolean air, boolean pip){
         Team best = new Team();
         int limestone = lime;
@@ -177,7 +170,7 @@ public class Main {
         return best;
     }
 
-    //Randomizes 6 seeding rounds for each team
+    //Randomizes rounds for each team
     public static Team [] generateRound(Team [] teams, int roundLength) {
         for (int teamNum = 0; teamNum < teams.length; teamNum++) {
             for (int round = 0; round < roundLength; round++) {
@@ -300,168 +293,3 @@ public class Main {
         return temp;
     }
 }
-
-    /*
-    //First Round Function
-    public static void seeding () {
-
-        /* limestone: lim
-        *coal: coal
-        * magnetite: mag
-        * bauxite: bau
-        * chalcopyrite: cha
-        * ccoreSampleValue: csv
-        * spodumene: spu
-        * filter: fil
-        * pipe: pipe
-         */
-
-//Randomly generates the amount of a material a random team collects and initializes them
-
-        /*
-        for (int i = 0; i < teams.length; i++) {
-            int lim = rand.nextInt(6) * 2;
-            int coal = rand.nextInt(25);
-            int mag = rand.nextInt(21);
-            int bau = rand.nextInt(17);
-            int cha = rand.nextInt(13);
-            int csv = rand.nextInt(4) * 50;
-            int spu = rand.nextInt(9);
-            boolean fil = rand.nextBoolean();
-            boolean pipe = rand.nextBoolean();
-            Team temp = new Team(lim, coal * coalValue, mag * magnetiteValue, bau * bauxiteValue, cha * chalcopyriteValue, csv, spu * spodumeneValue, fil, pipe);
-
-            teams[i] = temp;
-            }
-
-        //Initializes variables
-        int coalCollected = 0;
-        int magnetiteCollected = 0;
-        int bauxiteCollected = 0;
-        int chalcopyriteCollected = 0;
-        int spodumeneCollected = 0;
-
-       //Determines the total amount of each material collected
-        for (int i = 0; i < teams.length; i++) {
-            coalCollected += (teams[i].coalSR/coalValue);
-            magnetiteCollected += (teams[i].magnetiteSR/magnetiteValue);
-            bauxiteCollected += (teams[i].bauxiteSR/bauxiteValue);
-            chalcopyriteCollected += (teams[i].chalcopyriteSR/chalcopyriteValue);
-            spodumeneCollected += (teams[i].spodumeneSR/spodumeneValue);
-        }
-
-        //Adds our teams values
-        coalCollected += (BEST.coalSR/coalValue);
-        magnetiteCollected += (BEST.magnetiteSR/magnetiteValue);
-        bauxiteCollected += (BEST.bauxiteSR/bauxiteValue);
-        chalcopyriteCollected += (BEST.chalcopyriteSR/chalcopyriteValue);
-        spodumeneCollected += (BEST.spodumeneSR/spodumeneValue);
-
-        shiftMarket(coalCollected, magnetiteCollected, bauxiteCollected, chalcopyriteCollected, spodumeneCollected);
-    }
-
-    public static void semiFinals() {
-        for (int i = 0; i < teams.length; i++) {
-            int lim = rand.nextInt(6) * 2;
-            int coal = rand.nextInt(25);
-            int mag = rand.nextInt(21);
-            int bau = rand.nextInt(17);
-            int cha = rand.nextInt(13);
-            int csv = rand.nextInt(4) * 50;
-            int spu = rand.nextInt(9);
-            boolean fil = rand.nextBoolean();
-            boolean pipe = rand.nextBoolean();
-
-            teams[i].limestoneSF = lim*2;
-            teams[i].coalSF = coal*coalValue;
-            teams[i].magnetiteSF = mag*magnetiteValue;
-            teams[i].bauxiteSF = bau*bauxiteValue;
-            teams[i].chalcopyriteSF = cha*chalcopyriteValue;
-            teams[i].coreSampleSF = csv;
-            teams[i].spodumeneSF = spu*spodumeneValue;
-            teams[i].airFilterSF = fil;
-            teams[i].repairPipeSF = pipe;
-            float tempAir = 0;
-            float tempPipe = 0;
-            if (pipe == true) {
-                tempAir = 100;
-            }
-            if (fil == true) {
-                tempPipe = 100;
-            }
-            teams[i].scoreSF += lim + coal +mag + bau + cha + csv + spu + tempAir + tempPipe;
-        }
-
-        //Initializes variables
-        int coalCollected = 0;
-        int magnetiteCollected = 0;
-        int bauxiteCollected = 0;
-        int chalcopyriteCollected = 0;
-        int spodumeneCollected = 0;
-
-        //Determines the total amount of each material collected
-        for (int i = 0; i < teams.length; i++) {
-            coalCollected += (teams[i].coalSF/coalValue);
-            magnetiteCollected += (teams[i].magnetiteSF/magnetiteValue);
-            bauxiteCollected += (teams[i].bauxiteSF/bauxiteValue);
-            chalcopyriteCollected += (teams[i].chalcopyriteSF/chalcopyriteValue);
-            spodumeneCollected += (teams[i].spodumeneSF/spodumeneValue);
-        }
-
-        //Adds our teams values
-        coalCollected += (BEST.coalSF/coalValue);
-        magnetiteCollected += (BEST.magnetiteSF/magnetiteValue);
-        bauxiteCollected += (BEST.bauxiteSF/bauxiteValue);
-        chalcopyriteCollected += (BEST.chalcopyriteSF/chalcopyriteValue);
-        spodumeneCollected += (BEST.spodumeneSF/spodumeneValue);
-
-        shiftMarket(coalCollected, magnetiteCollected, bauxiteCollected, chalcopyriteCollected, spodumeneCollected);
-    }
-
-    public static void shiftMarket(int coa, int mag, int bau, int cha, int spu) {
-
-        float avgPercent;
-
-        float coalPercent = (coa/(teams.length+1) * 24);
-        float magnetitePercent = (mag/(teams.length+1) * 20);
-        float bauxitePercent = (bau/(teams.length+1) * 16);
-        float chalcopyritePercent = (cha/(teams.length) * 12);
-        float spodumenePercent = (spu/(teams.length) * 8);
-
-        avgPercent = (coalPercent +
-                magnetitePercent +
-                bauxitePercent +
-                chalcopyritePercent +
-                spodumenePercent)/5;
-
-        float high = maxi(coalPercent, magnetitePercent, bauxitePercent, chalcopyritePercent, spodumenePercent);
-        float low = mini(coalPercent, magnetitePercent, bauxitePercent, chalcopyritePercent, spodumenePercent);
-
-        float coalShift;
-        float magnetiteShift;
-        float bauxiteShift;
-        float chalcopyriteShift;
-        float spodumeneShift;
-
-        coalShift = (coalPercent - low)/(high-low);
-        magnetiteShift = (magnetitePercent - low)/(high-low);
-        bauxiteShift = (bauxitePercent - low)/(high-low);
-        chalcopyriteShift = (chalcopyritePercent - low)/(high-low);
-        spodumeneShift = (spodumenePercent - low)/(high-low);
-
-        float expandedAvg = (avgPercent-low)/(high-low);
-
-        coalShift = expandedAvg - coalShift;
-        magnetiteShift = expandedAvg - magnetiteShift;
-        bauxiteShift = expandedAvg - bauxiteShift;
-        chalcopyriteShift = expandedAvg - chalcopyriteShift;
-        spodumeneShift = expandedAvg - spodumeneShift;
-
-        coalValue = coalValue + (coalShift*coalValue);
-        magnetiteValue = magnetiteValue + (magnetiteShift*magnetiteValue);
-        bauxiteValue = bauxiteValue + (bauxiteShift*bauxiteValue);
-        chalcopyriteValue = chalcopyriteValue + (chalcopyriteShift*chalcopyriteValue);
-        spodumeneValue = spodumeneValue + (spodumeneShift*spodumeneValue);
-    }
-}
-*/

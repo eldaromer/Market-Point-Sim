@@ -5,6 +5,7 @@ package com.company;
  */
 public class Team {
 
+    //Just stores a score
     float score = 0;
     public Team () {
 
