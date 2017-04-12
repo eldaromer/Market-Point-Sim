@@ -10,10 +10,10 @@ import java.util.Random;
  * STEM BEST Robotics 2015 *
  * Market Shift Simulation *
  * Created on 9/19/2015    *
- * Completed on 10/1/2015       *
+ * Completed on 10/1/2015  *
  ***************************/
 
-//Libraries Imported
+
 public class Main {
 
     //Start win and loss counters at 0
